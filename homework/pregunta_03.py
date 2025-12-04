@@ -15,3 +15,21 @@ def pregunta_03():
     [('A', 53), ('B', 36), ('C', 27), ('D', 31), ('E', 67)]
 
     """
+    archivo = open("files/input/data.csv", "r")
+    acumulado = {}
+
+    for fila in archivo:
+        partes = fila.split()       # Se separa por espacios
+        letra = partes[0]           # primera columna
+        numero = int(partes[1])     # segunda columna
+
+        if letra in acumulado:
+            acumulado[letra] += numero
+        else:
+            acumulado[letra] = numero
+
+    archivo.close()
+    resultado = sorted(acumulado.items())
+    return resultado
+
+pregunta_03()

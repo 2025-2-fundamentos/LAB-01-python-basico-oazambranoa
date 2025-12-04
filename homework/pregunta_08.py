@@ -15,15 +15,36 @@ def pregunta_08():
     columna.
 
     Rta/
-    [(0, ['C']),
-     (1, ['B', 'E']),
-     (2, ['A', 'E']),
-     (3, ['A', 'B', 'D', 'E']),
-     (4, ['B', 'E']),
-     (5, ['B', 'C', 'D', 'E']),
-     (6, ['A', 'B', 'C', 'E']),
-     (7, ['A', 'C', 'D', 'E']),
-     (8, ['A', 'B', 'D', 'E']),
-     (9, ['A', 'B', 'C', 'E'])]
+[(0, ['C']),
+    (1, ['B', 'E']),
+    (2, ['A', 'E']),
+    (3, ['A', 'B', 'D', 'E']),
+    (4, ['B', 'E']),
+    (5, ['B', 'C', 'D', 'E']),
+    (6, ['A', 'B', 'C', 'E']),
+    (7, ['A', 'C', 'D', 'E']),
+    (8, ['A', 'B', 'D', 'E']),
+    (9, ['A', 'B', 'C', 'E'])]
 
     """
+    archivo = open("files/input/data.csv", "r")
+    agrupado = {}
+
+    for linea in archivo:
+        partes = linea.split()
+        letra = partes[0]
+        numero = partes[1]     # aún como cadena
+
+        if numero not in agrupado:
+            agrupado[numero] = {letra}   # conjunto para evitar duplicados
+        else:
+            agrupado[numero].add(letra)
+
+    archivo.close()
+
+    resultado = []
+    for clave, conjunto_letras in agrupado.items():
+        letras_ordenadas = sorted(list(conjunto_letras))
+        resultado.append((int(clave), letras_ordenadas))
+
+    return sorted(resultado)

@@ -14,14 +14,36 @@ def pregunta_07():
 
     Rta/
     [(0, ['C']),
-     (1, ['E', 'B', 'E']),
-     (2, ['A', 'E']),
-     (3, ['A', 'B', 'D', 'E', 'E', 'D']),
-     (4, ['E', 'B']),
-     (5, ['B', 'C', 'D', 'D', 'E', 'E', 'E']),
-     (6, ['C', 'E', 'A', 'B']),
-     (7, ['A', 'C', 'E', 'D']),
-     (8, ['E', 'D', 'E', 'A', 'B']),
-     (9, ['A', 'B', 'E', 'A', 'A', 'C'])]
+    (1, ['E', 'B', 'E']),
+    (2, ['A', 'E']),
+    (3, ['A', 'B', 'D', 'E', 'E', 'D']),
+    (4, ['E', 'B']),
+    (5, ['B', 'C', 'D', 'D', 'E', 'E', 'E']),
+    (6, ['C', 'E', 'A', 'B']),
+    (7, ['A', 'C', 'E', 'D']),
+    (8, ['E', 'D', 'E', 'A', 'B']),
+    (9, ['A', 'B', 'E', 'A', 'A', 'C'])]
 
     """
+    archivo = open("files/input/data.csv", "r")
+    agrupado = {}
+
+    for linea in archivo:
+        partes = linea.split()
+        letra = partes[0]            # columna 1
+        numero = partes[1]           # columna 2 en texto
+
+        if numero not in agrupado:
+            agrupado[numero] = [letra]
+        else:
+            agrupado[numero].append(letra)
+
+    archivo.close()
+
+    # Convertimos clave de str a int y ordenamos
+    resultado = []
+    for k, v in agrupado.items():
+        resultado.append((int(k), v))
+
+    return sorted(resultado)
+

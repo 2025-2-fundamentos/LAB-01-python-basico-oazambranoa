@@ -15,3 +15,21 @@ def pregunta_02():
     [('A', 8), ('B', 7), ('C', 5), ('D', 6), ('E', 14)]
 
     """
+    archivo = open("files/input/data.csv", "r")
+    conteo = {}
+
+    for fila in archivo:
+        elementos = fila.split()      # separa por espacios
+        letra = elementos[0]          # primera columna
+
+        if letra in conteo:
+            conteo[letra] += 1
+        else:
+            conteo[letra] = 1
+
+    archivo.close()
+
+    resultado = sorted(conteo.items())
+    return resultado
+
+pregunta_02()

@@ -15,3 +15,24 @@ def pregunta_12():
     {'A': 177, 'B': 187, 'C': 114, 'D': 136, 'E': 324}
 
     """
+    archivo = open("files/input/data.csv", "r")
+    acumulado = {}
+
+    for linea in archivo:
+        partes = linea.split()
+        letra = partes[0]          # columna 1
+        items_col5 = partes[4].split(",")  # elementos tipo k:v
+
+        total_fila = 0
+        for par in items_col5:
+            clave, numero = par.split(":")
+            total_fila += int(numero)
+
+        if letra not in acumulado:
+            acumulado[letra] = total_fila
+        else:
+            acumulado[letra] += total_fila
+
+    archivo.close()
+
+    return dict(sorted(acumulado.items()))

@@ -16,3 +16,22 @@ def pregunta_11():
 
 
     """
+
+    archivo = open("files/input/data.csv", "r")
+    acumulado = {}
+
+    for linea in archivo:
+        partes = linea.split()
+        numero = int(partes[1])          # columna 2
+        letras_col4 = partes[3].split(",")   # columna 4: lista de letras
+
+        for letra in letras_col4:
+            if letra not in acumulado:
+                acumulado[letra] = numero
+            else:
+                acumulado[letra] += numero
+
+    archivo.close()
+
+    # ordenar alfabéticamente y retornar como diccionario
+    return dict(sorted(acumulado.items()))

@@ -15,14 +15,46 @@ def pregunta_06():
 
     Rta/
     [('aaa', 1, 9),
-     ('bbb', 1, 9),
-     ('ccc', 1, 10),
-     ('ddd', 0, 9),
-     ('eee', 1, 7),
-     ('fff', 0, 9),
-     ('ggg', 3, 10),
-     ('hhh', 0, 9),
-     ('iii', 0, 9),
-     ('jjj', 5, 17)]
+    ('bbb', 1, 9),
+    ('ccc', 1, 10),
+    ('ddd', 0, 9),
+    ('eee', 1, 7),
+    ('fff', 0, 9),
+    ('ggg', 3, 10),
+    ('hhh', 0, 9),
+    ('iii', 0, 9),
+    ('jjj', 5, 17)]
 
     """
+    
+    archivo = open("files/input/data.csv", "r")
+    acumulado = {}
+
+    for linea in archivo:
+        columnas = linea.split()
+        pares = columnas[4].split(",")   # columna 5 con formato k:v,k:v,...
+
+        for par in pares:
+            clave, numero = par.split(":")
+            numero = int(numero)
+
+            if clave not in acumulado:
+                # [mínimo, máximo]
+                acumulado[clave] = [numero, numero]
+            else:
+                if numero < acumulado[clave][0]:
+                    acumulado[clave][0] = numero
+                if numero > acumulado[clave][1]:
+                    acumulado[clave][1] = numero
+
+    archivo.close()
+
+    resultado = []
+    for clave in acumulado:
+        minimo = acumulado[clave][0]
+        maximo = acumulado[clave][1]
+        resultado.append((clave, minimo, maximo))
+
+    return sorted(resultado)
+
+pregunta_06()

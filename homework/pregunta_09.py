@@ -12,15 +12,29 @@ def pregunta_09():
     aparece cada clave de la columna 5.
 
     Rta/
-    {'aaa': 13,
-     'bbb': 16,
-     'ccc': 23,
-     'ddd': 23,
-     'eee': 15,
-     'fff': 20,
-     'ggg': 13,
-     'hhh': 16,
-     'iii': 18,
-     'jjj': 18}}
+{'aaa': 13,
+    'bbb': 16,
+    'ccc': 23,
+    'ddd': 23,
+    'eee': 15,
+    'fff': 20,
+    'ggg': 13,
+    'hhh': 16,
+    'iii': 18,
+    'jjj': 18}}
 
     """
+    archivo = open("files/input/data.csv", "r")
+    contador = {}
+
+    for linea in archivo:
+        columnas = linea.split()
+        pares = columnas[4].split(",")   # elementos tipo 'aaa:3'
+
+        for par in pares:
+            clave, _ = par.split(":")    # solo necesitamos la clave
+            contador[clave] = contador.get(clave, 0) + 1
+
+    archivo.close()
+
+    return dict(sorted(contador.items()))
